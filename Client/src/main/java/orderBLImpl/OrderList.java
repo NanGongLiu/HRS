@@ -270,4 +270,26 @@ public class OrderList {
 		}
 		return returnlist; 
 	}
+
+	public List<OrderVO> getTodayUnfinishedOrders(String date) {
+		List<OrderPO> polist=new ArrayList<OrderPO>();
+		try {
+			polist=orderData.getUnfinishedOrders();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		List<OrderVO> list=new ArrayList<OrderVO>();
+		for(OrderPO order:polist){
+   			list.add(new OrderVO(order));
+   		}
+		List<OrderVO> returnlist=new ArrayList<OrderVO>();
+		for(OrderVO vo:list){
+			Calendar in=vo.expectedCheckIn;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			if(sdf.format(in.getTime()).equals(date)){
+				returnlist.add(vo);
+			}
+		}
+		return returnlist; 
+	}
 }

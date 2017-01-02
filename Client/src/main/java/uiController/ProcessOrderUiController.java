@@ -55,7 +55,6 @@ public class ProcessOrderUiController implements ProcessOrderUiService{
 		this.usertype=type;
 		user= new UserBLServiceController();
 		orderService = new OrderBLServiceController();
-		new UserBLServiceController();
 	}
 
 	/**
@@ -251,6 +250,7 @@ public class ProcessOrderUiController implements ProcessOrderUiService{
 				e.printStackTrace();
 			}
 			vo.addUserInfo(DES.decryptDES(user.findByID(vo.userID).username, skey));
+			System.out.println(DES.decryptDES(user.findByID(vo.userID).username, skey));
 			vo.addexpectedCheckIn();
 			vo.addlatest();
 			vo.addorderState();

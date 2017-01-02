@@ -87,25 +87,31 @@ public class CreditManagementView extends JPanel {
 				if(key!=null){
 					String acc=DES.encryptDES(accountText.getText(), key);
 					long value=Long.valueOf(valText.getText());
-					try {
-						Customer c=new Customer();
-						if(c.hasCustomer(acc)){
-							long currentcredit=controller.getCurrencredit(acc);
-							currentcredit+=value*time; 
-							Date now = new Date(); 
-							Calendar calendar = Calendar.getInstance();
-							calendar.setTime(now);
-							CreditRecordVO vo=new CreditRecordVO(null,acc,calendar,"",Operate.Recharge,value*time,currentcredit);
-							controller.updateCredit(vo);
-							JOptionPane.showMessageDialog(null, "操作成功！","", JOptionPane.YES_OPTION);
+					if(value>0){
+						try {
+							Customer c=new Customer();
+							if(c.hasCustomer(acc)){
+								long currentcredit=controller.getCurrencredit(acc);
+								currentcredit+=value*time; 
+								Date now = new Date(); 
+								Calendar calendar = Calendar.getInstance();
+								calendar.setTime(now);
+								CreditRecordVO vo=new CreditRecordVO(null,acc,calendar,"",Operate.Recharge,value*time,currentcredit);
+								controller.updateCredit(vo);
+								JOptionPane.showMessageDialog(null, "操作成功！","", JOptionPane.YES_OPTION);
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "不存在此客户！","", JOptionPane.ERROR_MESSAGE);
+								return;
+							}
+						} catch (RemoteException e) {
+							System.out.println("判断客户是否存在失败");
+							e.printStackTrace();
 						}
-						else{
-							JOptionPane.showMessageDialog(null, "不存在此客户！","", JOptionPane.ERROR_MESSAGE);
-							return;
-						}
-					} catch (RemoteException e) {
-						System.out.println("判断客户是否存在失败");
-						e.printStackTrace();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "充值金额必须为正！","", JOptionPane.ERROR_MESSAGE);
+						return;
 					}
 				}
 				else{

@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +15,8 @@ import javax.swing.JTextField;
 import common.DES;
 import common.UserType;
 import hotelWorkerView.ProcessOrderView;
+import orderBLService.OrderBLService;
+import orderBLService.OrderBLServiceController;
 import runner.ClientRunner;
 import uiService.CreditManagementUiService;
 import uiService.LoginViewControllerService;
@@ -21,8 +24,11 @@ import uiService.MemberLevelSystemUiService;
 import uiService.ProcessOrderUiService;
 import uiService.WebPromotionStrategyUiService;
 import uiService.webPromotionUserUiService;
+import userBLService.UserBLService;
+import userBLService.UserBLServiceController;
 import userBLServiceImpl.Log;
 import userView.LogView;
+import vo.OrderVO;
 import webPromotionView.CreditManagementView;
 import webPromotionView.MemberLevelSystemView;
 import webPromotionView.WebPromotionStrategyView;
@@ -41,6 +47,16 @@ import webPromotionView.WebPromotionUserView;
 
 public class webPromotionUserUiController implements webPromotionUserUiService {
 	private WebPromotionUserView view;
+	private UserBLService user;
+	private OrderBLService orderService;
+	public webPromotionUserUiController(){
+		try {
+			user= new UserBLServiceController();
+			orderService = new OrderBLServiceController();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public void toWebPromotionStrategyView() {
 		WebPromotionStrategyUiService controller;
@@ -146,5 +162,30 @@ public class webPromotionUserUiController implements webPromotionUserUiService {
 
 	}
 
+	@Override
+	public List<OrderVO> getUnfinishedOrders(String date) {
+		return translate(orderService.getTodayUnfinishedOrders(date));
+	}
+
+	private List<OrderVO> translate(List<OrderVO> list){
+		for(OrderVO vo:list){
+			vo.addorderNumber();
+			vo.adddetail();
+			String skey="";
+			try {
+				Log log=new Log();
+				skey = log.getSKey(vo.userID);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+			vo.addUserInfo(DES.decryptDES(user.findByID(vo.userID).username, skey));
+			System.out.println(DES.decryptDES(user.findByID(vo.userID).username, skey));
+			vo.addexpectedCheckIn();
+			vo.addlatest();
+			vo.addorderState();
+			vo.addorderValue();
+		}
+    	return list;
+    }
 }
 

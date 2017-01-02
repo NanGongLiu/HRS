@@ -1,5 +1,8 @@
 package uiService;
 
+import java.util.List;
+
+import vo.OrderVO;
 import webPromotionView.WebPromotionUserView;
 
 /**
@@ -33,5 +36,9 @@ public interface webPromotionUserUiService {
 	 * 跳转到订单界面
 	 */
 	public void toProcessOrderOrderView();
+	/*
+	 * 得到今日未执行订单
+	 */
+	public List<OrderVO> getUnfinishedOrders(String date);
 }
 

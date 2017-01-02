@@ -230,5 +230,17 @@ public class OrderDataServiceMySqlImpl implements OrderDataService,Serializable{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public List<OrderPO> getUnfinishedOrders() throws RemoteException {
+		List<OrderPO> list=new ArrayList<OrderPO>();
+		OrderPO po;
+		for(Entry<String,OrderPO> entry:map.entrySet()){
+			po=entry.getValue();
+			if(po.getOrderState()==2){
+				list.add(po);
+			}
+		}
+		return list;
+	}
 	
 }

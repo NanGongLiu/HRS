@@ -123,14 +123,14 @@ public class OrderVO extends  Vector<String>{
      */
     public void addexpectedCheckIn(){
     	SimpleDateFormat sdf =new SimpleDateFormat("yyyy/MM/dd");
-    	this.add(sdf.format(expectedCheckIn.getTime()));
+    	this.add(sdf.format(expectedCheckIn.getTime())+" 12:00:00");
     }
     /**
      * 为OrderVO这个Vector添加Object
      */
     public void addexpectedCheckOut(){
     	SimpleDateFormat sdf =new SimpleDateFormat("yyyy/MM/dd");
-    	this.add(sdf.format(expectedCheckOut.getTime()));
+    	this.add(sdf.format(expectedCheckOut.getTime())+" 12:00:00");
     }
     /**
      * 为OrderVO这个Vector添加Object

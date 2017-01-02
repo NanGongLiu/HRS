@@ -39,7 +39,7 @@ public class ServerRunner implements Serializable{
 	 * 构造界面
 	 */
 	private void initFrame() {
-		JFrame frame = new JFrame("Server");
+		JFrame frame = new JFrame("Server-Stop");
 		contentPane = new JPanel();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
@@ -61,6 +61,7 @@ public class ServerRunner implements Serializable{
 		startPanel.add(startButton);
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setTitle("Server-Running");
 				new RemoteHelper();
 			}
 		});
@@ -75,6 +76,7 @@ public class ServerRunner implements Serializable{
 		endPanel.add(endButton);
 		endButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.setTitle("Server-Stop");
 				System.exit(0);
 			}
 		});

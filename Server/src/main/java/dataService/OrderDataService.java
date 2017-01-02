@@ -1,7 +1,6 @@
 package dataService;
 import dataService.DataService;
 import po.*;
-
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -84,5 +83,10 @@ public interface OrderDataService  extends DataService{
  * @see data.Order
  */
 		public void finish() throws RemoteException;
+		/**
+		 * 获取所有未执行订单
+		 * @return
+		 */
+		public List<OrderPO> getUnfinishedOrders() throws RemoteException ;
 	}
 

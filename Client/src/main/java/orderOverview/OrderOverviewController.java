@@ -86,4 +86,12 @@ public class OrderOverviewController{
 	public List<OrderVO> getNowadaysUnfinishedOrder(String HotelID){
 		return list.getNowadaysUnfinishedOrder(HotelID);
 	}
+	/**
+	 * 获取某一天的所有未执行订单
+	 * @param date
+	 * @return
+	 */
+	public List<OrderVO> getTodayUnfinishedOrders(String date) {
+		return list.getTodayUnfinishedOrders(date);
+	}
 }

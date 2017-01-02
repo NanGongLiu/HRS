@@ -208,4 +208,11 @@ public interface OrderBLService {
 	 * @return List<OrderVO> 订单列表
 	 */
 	public List<OrderVO> getNowadaysUnfinishedOrder(String HotelID);
+
+/**
+ * 得到某一天的未执行订单
+ * @param date  String 日期
+ * @return List<OrderVO> 订单列表
+ */
+	public List<OrderVO> getTodayUnfinishedOrders(String date);
 }
