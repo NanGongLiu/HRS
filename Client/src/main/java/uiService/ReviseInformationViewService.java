@@ -28,4 +28,9 @@ public interface ReviseInformationViewService {
       * @return 客户ID
       */
      public String getUserID();
+     /**
+      * 判断能否修改企业
+      * @return
+      */
+	public boolean judge();
 }

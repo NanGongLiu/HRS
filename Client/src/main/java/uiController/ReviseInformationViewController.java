@@ -72,4 +72,11 @@ public class ReviseInformationViewController implements ReviseInformationViewSer
 	public String getUserID() {
 		return UserID;
 	}
+	@Override
+	public boolean judge() {
+		if(user.findByID(UserID).membertype.equals("企业会员")){
+			return true;
+		}
+		return false;
+	}
 }

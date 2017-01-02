@@ -174,6 +174,9 @@ public class ReviseInformationView extends JPanel {
 		
 		enterpriseinput = new JTextField();
 		enterpriseinput.setColumns(10);
+		if(!controller.judge()){
+			enterpriseinput.setEditable(false);
+		}
 		panel_5.add(enterpriseinput);
 		updateinformation = new JButton("\u786E\u5B9A\u4FEE\u6539");
 		/**
